@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLEANLOOP Community</title>
+<style>
+:root{--green:#145c49;--green2:#2d8067;--mint:#e7f3ed;--blue:#4da7bd;--bg:#f6f8f5;--text:#172a24;--muted:#718078;--yellow:#d6a91a;--red:#d65d52;--gray:#89958f;--line:#e5ebe7}
+*{box-sizing:border-box}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#e9eeea;color:var(--text);letter-spacing:-.01em}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#fbfcfa;box-shadow:0 0 50px #0002;position:relative;padding-bottom:82px}
+header{background:#fbfcfa;color:var(--text);padding:22px 20px 12px;border-radius:0;border-bottom:1px solid var(--line)}
+.logo{font-size:20px;font-weight:800;letter-spacing:2.8px;display:flex;align-items:center;gap:8px}.logo:before{content:"CL";display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:var(--green);color:#fff;font-size:11px;letter-spacing:-.5px}.tag{color:var(--muted);font-size:10px;margin-top:3px;letter-spacing:.2px}
+.top{display:flex;justify-content:space-between;align-items:center}.role{background:#eef4f0;color:var(--green);border:0;padding:7px 10px;border-radius:18px;font-size:9px;font-weight:800;letter-spacing:.8px}
+.content{padding:20px}.title{font-size:23px;font-weight:800;line-height:1.15;margin:4px 0 7px}.sub{font-size:11px;color:var(--muted);line-height:1.45}.title{font-size:20px;font-weight:800;margin:4px 0 14px}.sub{font-size:12px;color:#6b7b75}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 5px 18px #17352d08}.label{font-size:11px;color:#71817b}.value{font-size:23px;font-weight:800;margin-top:5px}.good{color:var(--green2)}.warn{color:#a77d00}.bad{color:var(--red)}
+.progress{height:7px;background:#e3eeea;border-radius:10px;margin-top:9px;overflow:hidden}.bar{height:100%;background:var(--green2);border-radius:10px}
+.section{margin-top:22px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sectionhead b{font-size:15px}
+.toilet{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;box-shadow:0 5px 18px #17352d07}.toilet h3{margin:0 0 5px;font-size:14px}.toilet p{margin:2px 0;font-size:11px;color:#71817b}.pill{font-size:10px;padding:5px 8px;border-radius:20px;height:max-content;white-space:nowrap}.pill.green{background:#dff3e9;color:#087154}.pill.yellow{background:#fff4ca;color:#8b6900}.pill.red{background:#ffe0dc;color:#a83b2e}.pill.gray{background:#e9eeec;color:#68736f}
+button{border:0;background:var(--green);color:white;padding:12px 15px;border-radius:13px;font-weight:750;cursor:pointer;box-shadow:0 6px 15px #145c4930}button.secondary{background:#edf4f0;color:var(--green);box-shadow:none}button.full{width:100%}
+.map{height:230px;background:#e7f3f6;border-radius:18px;position:relative;overflow:hidden;border:1px solid #d7e8e8}
+.road{position:absolute;background:#fff8;width:120%;height:18px;transform:rotate(18deg);top:80px;left:-20px}.road2{position:absolute;background:#fff8;width:120%;height:15px;transform:rotate(-32deg);top:155px;left:-30px}
+.pin{position:absolute;width:18px;height:18px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid white;box-shadow:0 2px 5px #0002}.pin i{display:block;width:7px;height:7px;background:white;border-radius:50%;margin:3px}.p1{left:22%;top:25%;background:#0b8767}.p2{left:61%;top:45%;background:#e0b315}.p3{left:42%;top:72%;background:#d85b4c}.p4{left:78%;top:22%;background:#8a9993}.maplabel{position:absolute;left:14px;top:12px;background:#fff;padding:7px 10px;border-radius:10px;font-size:11px;font-weight:700}
+.alert{background:#fff3d7;border:1px solid #f0d68b;padding:12px;border-radius:14px;font-size:12px}.alert b{display:block;margin-bottom:4px;color:#765900}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:430px;width:100%;background:#fbfcfaee;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 6px 11px;z-index:5}.nav button{background:none;color:#7b8781;padding:4px;font-size:9px;box-shadow:none}.nav button.active{color:var(--green);font-weight:800}.nav span{display:block;font-size:18px;margin-bottom:2px}
+.screen{display:none}.screen.active{display:block}
+.qr{border:2px dashed #94b8aa;border-radius:16px;padding:22px;text-align:center;background:#f6fbf8}.qrbox{width:130px;height:130px;margin:10px auto;background:repeating-linear-gradient(45deg,#143c31 0 5px,#fff 5px 10px);border:10px solid white;box-shadow:0 0 0 1px #ccdcd5}
+.task{display:flex;gap:12px;align-items:center;border:1px solid #e4eee9;border-radius:15px;padding:12px;margin:9px 0}.taskicon{width:38px;height:38px;border-radius:12px;background:var(--mint);display:grid;place-items:center}.task b{font-size:13px}.task small{color:#728079}
+.toast{position:fixed;top:18px;left:50%;transform:translate(-50%,-100px);background:#17352d;color:white;padding:12px 16px;border-radius:12px;font-size:12px;transition:.3s;z-index:20}.toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="top"><div><div class="logo">🌿 CLEANLOOP</div><div class="tag">Smart Sustainable Public Toilets</div></div><div class="role" id="roleLabel">CITIZEN</div></div>
+</header>
+
+<main class="content">
+<section id="home" class="screen active">
+ <div class="title">Clean toilets, smarter communities</div>
+ <div class="sub">Monitor · Maintain · Reuse · Sustain</div><div class="section" style="margin-top:16px">
+  <div style="background:linear-gradient(135deg,#eef5f0,#dcebe4);border-radius:22px;padding:18px;position:relative;overflow:hidden">
+    <div style="font-size:11px;color:#527267;font-weight:700;letter-spacing:.6px">CLEANLOOP COMMUNITY</div>
+    <div style="font-size:22px;font-weight:850;max-width:245px;margin-top:6px">Clean. Safe. Green.</div>
+    <div class="sub" style="max-width:245px;margin-top:5px">Smarter public toilets for healthier communities.</div>
+    <div style="position:absolute;right:18px;bottom:14px;font-size:55px;opacity:.18">🌿</div>
+  </div>
+</div>
+
+ <div class="section"><div class="sectionhead"><b>Nearby toilets</b><button class="secondary" onclick="show('map')">View map</button></div>
+  <div class="toilet"><div><h3>Toilet #04</h3><p>0.4 km · Open now</p><p>Water 82% · Soap 76% · Paper 68%</p></div><span class="pill green">Clean & usable</span></div>
+  <div class="toilet"><div><h3>Toilet #07</h3><p>0.8 km · Open now</p><p>Water 55% · Soap 34% · Paper 21%</p></div><span class="pill yellow">Attention</span></div>
+  <div class="toilet"><div><h3>Toilet #02</h3><p>1.1 km · Temporarily unavailable</p></div><span class="pill gray">Unavailable</span></div>
+ </div>
+
+ <div class="section"><div class="sectionhead"><b>Toilet #04 health</b><span class="pill green">92% usable</span></div>
+  <div class="cards">
+   <div class="card"><div class="label">Water</div><div class="value good">82%</div><div class="progress"><div class="bar" style="width:82%"></div></div></div>
+   <div class="card"><div class="label">Soap</div><div class="value good">76%</div><div class="progress"><div class="bar" style="width:76%"></div></div></div>
+   <div class="card"><div class="label">Toilet paper</div><div class="value good">68%</div><div class="progress"><div class="bar" style="width:68%"></div></div></div>
+   <div class="card"><div class="label">Air quality</div><div class="value good">Normal</div><div class="sub">Indicator only</div></div>
+  </div>
+ </div>
+ <div class="section"><div class="cards">
+  <button class="secondary" onclick="show('feedback')">▣ Scan QR & Report</button>
+  <button class="secondary" onclick="show('water')">♧ Water & Sustainability</button>
+ </div></div>
+</section>
+
+<section id="map" class="screen">
+ <div class="title">Citizen Map</div><div class="sub">Find the nearest usable public toilet</div>
+ <div class="section"><div class="map"><div class="maplabel">Nearby CLEANLOOP toilets</div><div class="road"></div><div class="road2"></div><div class="pin p1"><i></i></div><div class="pin p2"><i></i></div><div class="pin p3"><i></i></div><div class="pin p4"><i></i></div></div></div>
+ <div class="section"><button class="full" onclick="toast('Navigation started to Toilet #04')">📍 Navigate Me — Toilet #04</button></div>
+ <div class="section"><div class="cards"><div class="card"><div class="label">Green</div><div class="value good">Clean</div></div><div class="card"><div class="label">Yellow</div><div class="value warn">Attention</div></div><div class="card"><div class="label">Red</div><div class="value bad">Maintenance</div></div><div class="card"><div class="label">Grey</div><div class="value">Offline</div></div></div></div>
+</section>
+
+<section id="feedback" class="screen">
+ <div class="title">QR Cleaning & Feedback</div><div class="sub">Scan the toilet QR code or report a problem</div>
+ <div class="section qr"><div class="qrbox"></div><b>Toilet #04</b><p class="sub">QR verification demo</p><button onclick="toast('QR verified — facility status updated')">Verify Cleaning</button></div>
+ <div class="section"><div class="cards"><button class="secondary" onclick="toast('Issue: soap missing')">🧴 Soap missing</button><button class="secondary" onclick="toast('Issue: water problem')">💧 Water issue</button><button class="secondary" onclick="toast('Issue: odour detected')">⚠️ Odour</button><button class="secondary" onclick="toast('Feedback submitted')">⭐ Give rating</button></div></div>
+</section>
+
+<section id="workerLogin" class="screen">
+ <div style="text-align:center;margin-bottom:8px"><div style="width:54px;height:54px;border-radius:16px;background:var(--green);color:white;display:grid;place-items:center;margin:auto;font-weight:900;letter-spacing:-1px">CL</div></div><div class="title" style="text-align:center">Worker Login</div>
+ <div class="sub">The Worker Dashboard is restricted to authorized cleaning and maintenance staff.</div>
+ <div class="section qr">
+   <div style="font-size:42px">🧑‍🔧</div>
+   <h3>Authorized workers only</h3>
+   <p class="sub">Enter the worker PIN to continue.</p>
+   <input id="workerPin" type="password" inputmode="numeric" maxlength="6" placeholder="Worker PIN"
+     style="width:100%;padding:13px;border:1px solid #d9e7e1;border-radius:12px;margin:8px 0 12px;font-size:16px;text-align:center">
+   <button class="full" onclick="checkWorkerLogin()">Login as Worker</button>
+   <p id="loginError" class="sub" style="color:#b43e32;margin-top:10px"></p>
+ </div>
+ <div class="section">
+   <button class="secondary full" onclick="show('home')">← Back to Citizen Home</button>
+ </div>
+</section>
+
+<section id="worker" class="screen">
+ <div class="sectionhead"><div class="title" style="margin:0">Worker Dashboard</div><button class="secondary" onclick="workerLogout()">Logout</button></div><div class="sub">Assigned cleaning and maintenance tasks</div>
+ <div class="section"><div class="alert"><b>🚨 New alert — Toilet #04</b>Air-quality/odour threshold crossed. Cleaning request sent.</div></div>
+ <div class="section"><div class="sectionhead"><b>Today's tasks</b><span class="pill yellow">3 pending</span></div>
+  <div class="task"><div class="taskicon">🧹</div><div><b>Toilet #04 — Deep clean</b><br><small>Priority: High · 10:30 AM</small></div></div>
+  <div class="task"><div class="taskicon">🧴</div><div><b>Toilet #07 — Restock soap</b><br><small>Priority: Medium · 11:15 AM</small></div></div>
+  <div class="task"><div class="taskicon">💧</div><div><b>Toilet #02 — Water check</b><br><small>Priority: Medium · 12:00 PM</small></div></div>
+ </div>
+ <div class="section"><button class="full" onclick="toast('Task #04 completed — upload before/after photos next')">✓ Mark #04 cleaned</button></div>
+</section>
+
+<section id="water" class="screen">
+ <div class="title">Water Management</div><div class="sub">Greywater and rainwater are kept separate from blackwater</div>
+ <div class="section"><div class="cards">
+  <div class="card"><div class="label">Rainwater tank</div><div class="value good">71%</div></div>
+  <div class="card"><div class="label">Recycled greywater</div><div class="value good">63%</div></div>
+  <div class="card"><div class="label">Fresh water saved</div><div class="value">148 L</div></div>
+  <div class="card"><div class="label">Reuse</div><div class="value good">Flushing</div></div>
+ </div></div>
+ <div class="section"><div class="toilet"><div><h3>Greywater process</h3><p>Screening → Filtration → Biological treatment → Disinfection → Storage → Reuse</p></div><span class="pill green">Active</span></div>
+ <div class="toilet"><div><h3>Blackwater</h3><p>Toilet → Sewer network / approved onsite sanitation → Treatment facility</p></div><span class="pill gray">Separate</span></div></div>
+ <div class="section"><div class="alert"><b>Safety</b>Recycled greywater is for approved non-potable uses such as flushing and suitable irrigation—not drinking or direct handwashing.</div></div>
+</section>
+</main>
+
+<nav class="nav">
+ <button class="active" onclick="show('home',this)"><span>🏠</span>Home</button>
+ <button onclick="show('map',this)"><span>📍</span>Map</button>
+ <button onclick="show('feedback',this)"><span>▣</span>QR/Report</button>
+ <button onclick="show('water',this)"><span>💧</span>Water</button>
+ <button onclick="workerLogin()"><span>🔒</span>Worker Login</button>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+function show(id,btn){
+ if(id === 'worker' && !workerAuthenticated){ workerLogin(); return; }
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ if(btn){document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+}
+let workerAuthenticated = false;
+
+function workerLogin(){
+  // Citizen cannot enter the worker dashboard directly.
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById('workerLogin').classList.add('active');
+  document.getElementById('roleLabel').textContent='CITIZEN';
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+  document.getElementById('workerPin').value='';
+  document.getElementById('loginError').textContent='';
+}
+
+function checkWorkerLogin(){
+  const pin = document.getElementById('workerPin').value;
+  // Demo PIN for the hackathon prototype only.
+  if(pin === '123456'){
+    workerAuthenticated = true;
+    document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+    document.getElementById('worker').classList.add('active');
+    document.getElementById('roleLabel').textContent='WORKER';
+    toast('Worker login successful');
+  }else{
+    document.getElementById('loginError').textContent='Invalid worker PIN. Worker access denied.';
+  }
+}
+
+function openWorkerDashboard(){
+  if(!workerAuthenticated){
+    workerLogin();
+    return;
+  }
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById('worker').classList.add('active');
+  document.getElementById('roleLabel').textContent='WORKER';
+}
+
+function workerLogout(){
+  workerAuthenticated = false;
+  document.getElementById('roleLabel').textContent='CITIZEN';
+  show('home');
+  toast('Worker logged out');
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+</script>
+</body>
+</html>
